@@ -1,5 +1,5 @@
 # Common configuration.
-require: rubocop-rails
+
 AllCops:
   RubyInterpreters:
     - ruby
@@ -7,7 +7,6 @@ AllCops:
     - rake
     - jruby
     - rbx
-    SuggestExtensions: false
   # Include common Ruby source files.
   Include:
     - '**/*.rb'
@@ -4243,7 +4242,7 @@ Style/StructInheritance:
 Style/SymbolArray:
   Description: 'Use %i or %I for arrays of symbols.'
   StyleGuide: '#percent-i'
-  Enabled: false
+  Enabled: true
   VersionAdded: '0.9'
   VersionChanged: '0.49'
   EnforcedStyle: percent
