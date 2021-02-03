@@ -1,12 +1,10 @@
-numbers_fibonacci = []
+numbers_fibonacci = [0, 1]
 
 loop do
-  numbers_fibonacci = [0, 1] if numbers_fibonacci.empty?
+  number = numbers_fibonacci.last(2).sum
 
-  number1, number2 = numbers_fibonacci.last(2)
-  fibonacci_number = number1 + number2
-  break if fibonacci_number > 100
+  break if number > 100
 
-  numbers_fibonacci << fibonacci_number
+  numbers_fibonacci << number
 end
 print numbers_fibonacci
