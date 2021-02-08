@@ -13,7 +13,7 @@ class Station
   def send_train
     current_train = @trains.pop
 
-    puts "Train \"#{current_train.train[:number]}\" from the station #{@title} out" if current_train
+    puts "Train \"#{current_train.number}\" from the station #{@title} out" if current_train
     current_train.on_forvard if current_train
   end
 
@@ -22,8 +22,8 @@ class Station
   end
 
   def get_count_type_trains
-    count_pass = @trains.count { |item| item.train[:type] == 'pass' }
-    count_cargo = @trains.count { |item| item.train[:type] == 'cargo' }
+    count_pass = @trains.count { |item| item.type == 'pass' }
+    count_cargo = @trains.count { |item| item.type == 'cargo' }
 
     puts "count_pass: #{count_pass}, count_cargo: #{count_cargo}"
   end
@@ -54,7 +54,7 @@ end
 
 class Train
   attr_accessor :train
-  attr_reader :speed
+  attr_reader :speed, :type, :number
 
   def initialize(number, type, count_wagons)
     @train = {
@@ -62,34 +62,38 @@ class Train
       type: type,
       count_wagons: count_wagons
     }
+    @number = number
+    @type = type
+    @count_wagons = count_wagons
+
     @speed = 0
     @route = nil
   end
 
   def add_speed
     @speed += 50
-    puts "Train \"#{@train[:number]}\" added speed by 50, current speed #{@speed}"
+    puts "Train \"#{@number}\" added speed by 50, current speed #{@speed}"
   end
 
   def stop
     @speed = 0
-    puts "Train \"#{@train[:number]}\" stopped"
+    puts "Train \"#{@number}\" stopped"
   end
 
   def speed
-    puts "Train \"#{@train[:number]}\" current speed #{@speed}"
+    puts "Train \"#{@number}\" current speed #{@speed}"
   end
 
   def get_wagons
-    puts "Train \"#{@train[:number]}\" has #{@train[:count_wagons]} wagons"
+    puts "Train \"#{@number}\" has #{@count_wagons} wagons"
   end
 
   def add_wagon
-    @train[:count_wagons] += 1 if @speed.zero?
+    @count_wagons += 1 if @speed.zero?
   end
 
   def delete_wagon
-    @train[:count_wagons] -= 1 if @speed.zero? && @train[:count_wagons] > 1
+    @count_wagons -= 1 if @speed.zero? && @count_wagons > 1
   end
 
   def add_route(route)
@@ -105,7 +109,7 @@ class Train
     if @route.stations.size == 2
 
       @route.stations.each do  |station|
-        if station.object_id != @route.stations[@current_station].object_id
+        if station != @route.stations[@current_station]
           next_stations = station.title
           prev_stations = station.title
         end
@@ -175,3 +179,4 @@ cat_train.add_route(magic_route)
 
 moskov.count_trains
 moskov.get_count_type_trains
+dog_train.get_current_station
