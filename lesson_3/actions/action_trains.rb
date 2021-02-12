@@ -26,84 +26,92 @@ class ActionTrains < Action
       case choise_train
       when 1
 
-        puts 'Введите название поезда'
-
-        train_name = gets.chomp
-
-        puts 'Выберите тип поезда'
-        puts '1 --- пассажирский поезд'
-        puts '2 --- грузовой поезд'
-
-        train_type = gets.chomp.to_i
-
-        @trains << PassengerTrain.new(train_name) if train_type == 1
-        @trains << CargoTrain.new(train_name) if train_type == 2
-
-        @trains.each { |item| puts item.number }
+        create_train
 
       when 2
 
-        select_route
-        select_route_index = gets.chomp.to_i
+        selected_route = select_route
 
-        select_train
-
-        select_train_index = gets.chomp.to_i
-        @trains[select_train_index].add_route(@routes[select_route_index])
+        select_train.add_route(selected_route)
 
       when 3
-        select_train
-
-        select_train_index = gets.chomp.to_i
-        @trains[select_train_index].on_forvard
+        select_train.on_forvard
 
       when 4
-        select_train
-
-        select_train_index = gets.chomp.to_i
-        @trains[select_train_index].on_back
+        select_train.on_back
 
       when 5
 
-        puts 'Выберите тип вагона'
-        puts '1 --- Пассажирский'
-        puts '2 --- Грузовой'
-
-        type_wagon = gets.chomp.to_i
-
-        @wagons << PassengerWagon.new if type_wagon == 1
-        @wagons << CargoWagon.new if type_wagon == 2
+        create_wagon
 
       when 6
-        if @wagons.length.zero?
-          puts 'Вагонов нет, создайте их'
-        else
-          select_train
-          select_train_index = gets.chomp.to_i
-
-          select_wagon
-          select_wagon_index = gets.chomp.to_i
-
-          @trains[select_train_index].add_wagon(@wagons[select_wagon_index])
-
-        end
+        add_wagon
       when 7
-        select_train
-        select_train_index = gets.chomp.to_i
-
-        if @trains[select_train_index].wagons.length.zero?
-          puts 'У поезда нет вагонов'
-        else
-
-          @trains[select_train_index].wagons.shift
-        end
-
+        delete_wagon
       when 0
         choise_route = 0
 
       end
 
       break if choise_train.zero?
+    end
+  end
+
+  private
+
+  def create_train
+    puts 'Введите название поезда'
+
+    train_name = gets.chomp
+
+    puts 'Выберите тип поезда'
+    puts '1 --- пассажирский поезд'
+    puts '2 --- грузовой поезд'
+
+    train_type = gets.chomp.to_i
+
+    @trains << PassengerTrain.new(train_name) if train_type == 1
+    @trains << CargoTrain.new(train_name) if train_type == 2
+
+    @trains.each { |item| puts item.number }
+  end
+
+  def create_wagon
+    puts 'Выберите тип вагона'
+    puts '1 --- Пассажирский'
+    puts '2 --- Грузовой'
+
+    type_wagon = gets.chomp.to_i
+
+    @wagons << PassengerWagon.new if type_wagon == 1
+    @wagons << CargoWagon.new if type_wagon == 2
+  end
+
+  def add_wagon
+    if @wagons.empty?
+      puts 'Вагонов нет, создайте их'
+    else
+
+      seleted_train = select_train
+      selected_wagon = select_wagon
+
+      added_wagon = seleted_train.add_wagon(selected_wagon)
+
+      @wagons.delete(selected_wagon) if added_wagon
+
+    end
+  end
+
+  def delete_wagon
+    seleted_train = select_train
+
+    if seleted_train.wagons.empty?
+      puts 'У поезда нет вагонов'
+    else
+
+      selected_wagon = seleted_train.wagons.shift
+
+      @wagons << selected_wagon
     end
   end
 end

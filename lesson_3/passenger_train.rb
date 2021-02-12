@@ -18,10 +18,9 @@ class PassengerTrain < Train
   end
 
   def delete_wagon
-    if @wagons.size.zero?
+    if @wagons.empty?
       puts 'У поезда нет вагонов'
     else
-
       @wagons.shift
     end
   end

@@ -27,6 +27,13 @@ class RailRoadStations
     train_pass3 = PassengerTrain.new('Пассажирский поезд А')
     cargo_train = CargoTrain.new('Грузовой поезд Б')
 
+    wagon_cargo = CargoWagon.new
+
+    wagon_pass = PassengerWagon.new
+
+    @wagons << wagon_cargo
+    @wagons << wagon_pass
+
     train_pass.add_route(routes1)
     train_pass2.add_route(routes1)
     train_pass3.add_route(routes1)

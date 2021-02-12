@@ -21,21 +21,12 @@ class ActionStations < Action
 
       case choise_station
       when 1
-        puts 'Введите название станции'
-
-        station_name = gets.chomp
-
-        @stations << Station.new(station_name)
+        create_station
       when 2
         select_station
 
       when 3
-        puts 'Выберите станцию'
-        select_station
-
-        select_station_index = gets.chomp.to_i
-
-        @stations[select_station_index].get_count_type_trains
+        list_trains_on_station
 
       when 0
         choise_station = 0
@@ -44,5 +35,24 @@ class ActionStations < Action
 
       break if choise_station.zero?
     end
+  end
+
+  private
+
+  def create_station
+    puts 'Введите название станции'
+
+    station_name = gets.chomp
+
+    @stations << Station.new(station_name)
+  end
+
+  def list_trains_on_station
+    puts 'Выберите станцию'
+    select_station
+
+    select_station_index = gets.chomp.to_i
+
+    @stations[select_station_index].get_count_type_trains
   end
 end
