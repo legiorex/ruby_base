@@ -1,9 +1,22 @@
+require './modules/instance_counter'
+
 class Station
+  extend InstanceCounter::ClassMethods
+  include InstanceCounter::InstanseMethods
+
   attr_accessor :trains, :title
+
+  @@count_stations = 0
+
+  def self.all
+    @@count_stations
+  end
 
   def initialize(title)
     @title = title
     @trains = []
+    @@count_stations += 1
+    register_instance(self)
   end
 
   def add_train(train)

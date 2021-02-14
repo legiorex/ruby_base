@@ -3972,7 +3972,7 @@ Style/RedundantReturn:
 Style/RedundantSelf:
   Description: "Don't use self where it's not needed."
   StyleGuide: '#no-self-unless-required'
-  Enabled: true
+  Enabled: false
   VersionAdded: '0.10'
   VersionChanged: '0.13'
 

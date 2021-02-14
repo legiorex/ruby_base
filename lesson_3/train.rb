@@ -1,10 +1,21 @@
+require './modules/company'
+
 class Train
+  include Company
+
   attr_reader :number
+
+  @@trains = []
+
+  def self.find(number)
+    @@trains.find { |item| item.number == number }
+  end
 
   def initialize(number)
     @number = number
 
     @speed = 0
+    @@trains << self
   end
 
   def get_current_speed
