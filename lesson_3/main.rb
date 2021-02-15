@@ -1,3 +1,7 @@
+require './modules/instance_counter'
+require './actions/action_routes'
+require './actions/action_trains'
+require './actions/action_stations'
 require_relative 'rail_road_station'
 require_relative 'route'
 require_relative 'station'
@@ -7,9 +11,6 @@ require_relative 'cargo_train'
 require_relative 'wagon'
 require_relative 'cargo_wagon'
 require_relative 'passenger_wagon'
-require './actions/action_routes'
-require './actions/action_trains'
-require './actions/action_stations'
 
 class Main
   def initialize
@@ -53,4 +54,4 @@ end
 
 main = Main.new
 
-main.control
+# main.control

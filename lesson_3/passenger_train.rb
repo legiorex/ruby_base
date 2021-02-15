@@ -1,7 +1,4 @@
 class PassengerTrain < Train
-  extend InstanceCounter::ClassMethods
-  include InstanceCounter::InstanseMethods
-
   attr_reader :type, :wagons
 
   def initialize(number)
@@ -9,7 +6,6 @@ class PassengerTrain < Train
     @type = 'passenger'
     @wagons = []
     super(number)
-    register_instance(self)
   end
 
   def add_wagon(wagon)

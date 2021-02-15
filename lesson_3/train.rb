@@ -2,6 +2,7 @@ require './modules/company'
 
 class Train
   include Company
+  include InstanceCounter
 
   attr_reader :number
 
@@ -16,6 +17,8 @@ class Train
 
     @speed = 0
     @@trains << self
+
+    register_instance
   end
 
   def get_current_speed

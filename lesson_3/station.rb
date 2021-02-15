@@ -1,8 +1,5 @@
-require './modules/instance_counter'
-
 class Station
-  extend InstanceCounter::ClassMethods
-  include InstanceCounter::InstanseMethods
+  include InstanceCounter
 
   attr_accessor :trains, :title
 
@@ -16,7 +13,7 @@ class Station
     @title = title
     @trains = []
     @@count_stations += 1
-    register_instance(self)
+    register_instance
   end
 
   def add_train(train)

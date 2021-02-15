@@ -1,8 +1,5 @@
-require './modules/instance_counter'
-
 class Route
-  extend InstanceCounter::ClassMethods
-  include InstanceCounter::InstanseMethods
+  include InstanceCounter
   attr_accessor :stations
 
   def initialize(start_station, end_station)
@@ -10,7 +7,7 @@ class Route
     @end_station = end_station
 
     @stations = [@start_station, @end_station]
-    register_instance(self)
+    register_instance
   end
 
   def get_stations

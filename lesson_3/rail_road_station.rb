@@ -19,8 +19,9 @@ class RailRoadStations
     routes1 = Route.new(moskov, piter)
     routes1.add_station(sochi)
     routes1.add_station(vladivostok)
+    routes2 = Route.new(sochi, vladivostok)
     @routes << routes1
-    @routes << Route.new(sochi, vladivostok)
+    @routes << routes2
 
     train_pass = PassengerTrain.new('Пассажирский поезд А')
     train_pass2 = PassengerTrain.new('Пассажирский поезд А')
