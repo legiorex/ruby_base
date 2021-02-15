@@ -3,16 +3,16 @@ class Station
 
   attr_accessor :trains, :title
 
-  @@count_stations = 0
+  @@stations = []
 
   def self.all
-    @@count_stations
+    @@stations
   end
 
   def initialize(title)
     @title = title
     @trains = []
-    @@count_stations += 1
+    @@stations << self
     register_instance
   end
 
