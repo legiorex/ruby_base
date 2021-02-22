@@ -1,9 +1,19 @@
 class Station
+  include InstanceCounter
+
   attr_accessor :trains, :title
+
+  @@stations = []
+
+  def self.all
+    @@stations
+  end
 
   def initialize(title)
     @title = title
     @trains = []
+    @@stations << self
+    register_instance
   end
 
   def add_train(train)
