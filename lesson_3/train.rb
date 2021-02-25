@@ -16,12 +16,12 @@ class Train
 
   def initialize(number)
     @number = number
+    validate!
 
     @speed = 0
     @@trains << self
 
     register_instance
-    validate!
   end
 
   def get_current_speed

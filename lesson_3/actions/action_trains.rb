@@ -74,8 +74,8 @@ class ActionTrains < Action
     @trains << CargoTrain.new(train_name) if train_type == 2
 
     @trains.each { |item| puts item.number }
-  rescue StandardError
-    puts 'Поезд не был создал, попробуйте снова'
+  rescue StandardError => e
+    puts e.message
   end
 
   def create_wagon
