@@ -17,7 +17,7 @@ class Main
     puts 'Привет, это программа-абстракция железной дороги'
 
     rail_road_station = RailRoadStations.new
-    rail_road_station.seed
+    # rail_road_station.seed
     @routes = rail_road_station.routes
     @stations = rail_road_station.stations
     @actions_route = ActionRoutes.new(rail_road_station)
@@ -54,4 +54,4 @@ end
 
 main = Main.new
 
-# main.control
+main.control

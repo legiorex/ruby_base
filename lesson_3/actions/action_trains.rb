@@ -60,7 +60,7 @@ class ActionTrains < Action
   private
 
   def create_train
-    puts 'Введите название поезда'
+    puts 'Введите номер поезда, формата ххх-хх'
 
     train_name = gets.chomp
 
@@ -74,6 +74,8 @@ class ActionTrains < Action
     @trains << CargoTrain.new(train_name) if train_type == 2
 
     @trains.each { |item| puts item.number }
+  rescue StandardError
+    puts 'Поезд не был создал, попробуйте снова'
   end
 
   def create_wagon
