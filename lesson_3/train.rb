@@ -1,5 +1,7 @@
 require './modules/company'
 
+TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-*[а-я\d]{2}$/i
+
 class Train
   include Company
   include InstanceCounter
@@ -14,6 +16,7 @@ class Train
 
   def initialize(number)
     @number = number
+    validate!
 
     @speed = 0
     @@trains << self
@@ -99,6 +102,13 @@ class Train
     end
   end
 
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
+  end
+
   protected
 
   attr_accessor :speed
@@ -111,5 +121,10 @@ class Train
   def stop
     @speed = 0
     puts "Train \"#{@number}\" stopped"
+  end
+
+  def validate!
+    raise 'Поезд должн иметь номер' if number.nil?
+    raise 'Не верный формат номера поезда' if number !~ TRAIN_NUMBER_FORMAT
   end
 end
