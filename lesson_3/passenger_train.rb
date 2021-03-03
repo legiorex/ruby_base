@@ -1,10 +1,10 @@
 class PassengerTrain < Train
-  attr_reader :type, :wagons
+  attr_reader :type
 
   def initialize(number)
     @number = number
+
     @type = 'passenger'
-    @wagons = []
     super(number)
   end
 
@@ -12,8 +12,7 @@ class PassengerTrain < Train
     if wagon.type != @type
       puts 'Вы можете добавить только пассажирский вагон'
     else
-
-      @wagons << wagon
+      self.wagons << wagon
     end
   end
 
@@ -22,6 +21,12 @@ class PassengerTrain < Train
       puts 'У поезда нет вагонов'
     else
       @wagons.shift
+    end
+  end
+
+  def each_wagons
+    self.each_wagon do |wagon|
+      puts "тип вагона #{wagon.type} занятых мест #{wagon.occupied_place} свободных мест #{wagon.free_place}"
     end
   end
 end

@@ -37,4 +37,8 @@ class Station
 
     puts "Колличество поездов --- пассажирских: #{count_pass}, грузовых: #{count_cargo}"
   end
+
+  def each_train
+    @trains.each { |train| yield train }
+  end
 end

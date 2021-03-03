@@ -53,6 +53,10 @@ class ActionStations < Action
 
     select_station_index = gets.chomp.to_i
 
-    @stations[select_station_index].get_count_type_trains
+    @stations[select_station_index].each_train do |train|
+      puts "Номер поезда - #{train.number} тип поезда - #{train.type} количество вагонов - #{train.wagons.size}"
+
+      train.each_wagons
+    end
   end
 end

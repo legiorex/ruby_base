@@ -85,7 +85,14 @@ class ActionTrains < Action
 
     type_wagon = gets.chomp.to_i
 
-    @wagons << PassengerWagon.new if type_wagon == 1
+    if type_wagon == 1
+      puts 'Введите количество мест в пассажирском вагоне'
+      count_place = gets.chomp.to_i
+
+      @wagons << PassengerWagon.new(count_place)
+
+    end
+
     @wagons << CargoWagon.new if type_wagon == 2
   end
 

@@ -5,8 +5,7 @@ TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-*[а-я\d]{2}$/i
 class Train
   include Company
   include InstanceCounter
-
-  attr_reader :number
+  attr_reader :number, :wagons
 
   @@trains = []
 
@@ -22,6 +21,7 @@ class Train
     @@trains << self
 
     register_instance
+    @wagons = []
   end
 
   def get_current_speed
@@ -112,10 +112,15 @@ class Train
   protected
 
   attr_accessor :speed
+  attr_writer :wagons
 
   def add_speed
     @speed += 50
     puts "Train \"#{@number}\" added speed by 50, current speed #{@speed}"
+  end
+
+  def each_wagon
+    @wagons.each { |wagon| yield wagon }
   end
 
   def stop
