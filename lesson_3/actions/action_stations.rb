@@ -56,7 +56,7 @@ class ActionStations < Action
     @stations[select_station_index].each_train do |train|
       puts "Номер поезда - #{train.number} тип поезда - #{train.type} количество вагонов - #{train.wagons.size}"
 
-      train.each_wagons
+      train.print_wagons
     end
   end
 end

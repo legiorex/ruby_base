@@ -32,25 +32,11 @@ class RailRoadStations
     w_c4 = CargoWagon.new(15)
     w_c5 = CargoWagon.new(24)
 
-    w_c1.take_volume
-    w_c1.take_volume
-    w_c1.take_volume
-    w_c1.take_volume
-
-    w_c4.take_volume
-    w_c4.take_volume
-    w_c4.take_volume
-    w_c4.take_volume
-
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
-    w_c5.take_volume
+    w_c1.load_wagon(3)
+    w_c2.load_wagon(2)
+    w_c3.load_wagon(5)
+    w_c4.load_wagon(10)
+    w_c5.load_wagon(20)
 
     @wagons << w_c1
     @wagons << w_c2

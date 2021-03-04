@@ -16,9 +16,8 @@ class ActionTrains < Action
       puts '2 -- назначить маршрут'
       puts '3 -- вперёд'
       puts '4 -- назад'
-      puts '5 -- создать вагон'
-      puts '6 -- прицепить вагон'
-      puts '7 -- отцепить вагон'
+      puts '5 -- прицепить вагон'
+      puts '6 -- отцепить вагон'
       puts '0 -- в главное меню'
 
       choise_train = gets.chomp.to_i
@@ -41,15 +40,11 @@ class ActionTrains < Action
         select_train.on_back
 
       when 5
-
-        create_wagon
-
-      when 6
         add_wagon
-      when 7
+      when 6
         delete_wagon
       when 0
-        choise_route = 0
+        choise_train = 0
 
       end
 
@@ -76,24 +71,6 @@ class ActionTrains < Action
     @trains.each { |item| puts item.number }
   rescue StandardError => e
     puts e.message
-  end
-
-  def create_wagon
-    puts 'Выберите тип вагона'
-    puts '1 --- Пассажирский'
-    puts '2 --- Грузовой'
-
-    type_wagon = gets.chomp.to_i
-
-    if type_wagon == 1
-      puts 'Введите количество мест в пассажирском вагоне'
-      count_place = gets.chomp.to_i
-
-      @wagons << PassengerWagon.new(count_place)
-
-    end
-
-    @wagons << CargoWagon.new if type_wagon == 2
   end
 
   def add_wagon

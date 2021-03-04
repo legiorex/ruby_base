@@ -24,9 +24,9 @@ class PassengerTrain < Train
     end
   end
 
-  def each_wagons
+  def print_wagons
     self.each_wagon do |wagon|
-      puts "тип вагона #{wagon.type} занятых мест #{wagon.occupied_place} свободных мест #{wagon.free_place}"
+      puts "тип вагона #{wagon.type} занятых мест #{wagon.occupied_items} свободных мест #{wagon.free_items}"
     end
   end
 end
