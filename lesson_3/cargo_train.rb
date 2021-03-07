@@ -1,5 +1,5 @@
 class CargoTrain < Train
-  attr_reader :type, :wagons
+  attr_reader :type
 
   def initialize(number)
     @number = number
@@ -11,8 +11,7 @@ class CargoTrain < Train
     if wagon.type != @type
       puts 'Вы можете добавить только грузовой вагон'
     else
-
-      @wagons << wagon
+      self.wagons << wagon
     end
   end
 
@@ -21,6 +20,12 @@ class CargoTrain < Train
       puts 'У поезда нет вагонов'
     else
       @wagons.shift
+    end
+  end
+
+  def print_wagons
+    self.each_wagon do |wagon|
+      puts "тип вагона #{wagon.type} занятый объём #{wagon.occupied_items} свободный объём #{wagon.free_items}"
     end
   end
 end

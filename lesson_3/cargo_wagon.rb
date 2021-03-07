@@ -1,8 +1,13 @@
 class CargoWagon < Wagon
-  attr_reader :type
+  attr_reader :type, :volume
 
-  def initialize
+  def initialize(volume)
     @type = 'cargo'
-    super
+
+    super(volume)
+  end
+
+  def load_wagon(value)
+    self.used_wagon(value)
   end
 end
