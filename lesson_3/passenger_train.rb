@@ -3,16 +3,15 @@ class PassengerTrain < Train
 
   def initialize(number)
     @number = number
-
     @type = 'passenger'
     super(number)
   end
 
   def add_wagon(wagon)
-    if wagon.type != @type
-      puts 'Вы можете добавить только пассажирский вагон'
-    else
+    if wagon.type
       @wagons << wagon
+    else
+      puts 'Вы можете добавить только пассажирский вагон'
     end
   end
 

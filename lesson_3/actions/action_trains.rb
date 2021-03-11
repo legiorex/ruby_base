@@ -55,7 +55,6 @@ class ActionTrains < Action
 
   def add_route
     selected_route = select_route
-
     select_train.add_route(selected_route)
   end
 
@@ -71,26 +70,19 @@ class ActionTrains < Action
     if @wagons.empty?
       puts 'Вагонов нет, создайте их'
     else
-
       seleted_train = select_train
       selected_wagon = select_wagon
-
       added_wagon = seleted_train.add_wagon(selected_wagon)
-
       @wagons.delete(selected_wagon) if added_wagon
-
     end
   end
 
   def delete_wagon
     seleted_train = select_train
-
     if seleted_train.wagons.empty?
       puts 'У поезда нет вагонов'
     else
-
       selected_wagon = seleted_train.wagons.shift
-
       @wagons << selected_wagon
     end
   end

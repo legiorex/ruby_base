@@ -10,7 +10,7 @@ class PassengerWagon < Wagon
     if free_items.zero?
       puts 'Нет свободного места, пройдите в другой вагон'
     else
-      self.used_wagon(1)
+      used_wagon(1)
     end
   end
 end

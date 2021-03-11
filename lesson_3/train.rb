@@ -1,24 +1,21 @@
-TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-?[а-я\d]{2}$/i
+TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-?[а-я\d]{2}$/i.freeze
 
 class Train
   include Company
   include InstanceCounter
   attr_reader :number, :wagons
 
-  @@trains = []
-
-  def self.find(number)
-    @@trains.find { |item| item.number == number }
+  def find(number)
+    @trains.find { |item| item.number == number }
   end
 
   def initialize(number)
     @number = number
     validate!
-
     @speed = 0
-    @@trains << self
-
-    register_instance
+    @trains = []
+    @trains << self
+    self.register_instance
     @wagons = []
   end
 
@@ -67,13 +64,9 @@ class Train
     else
 
       add_speed
-
       @route.stations[@current_station].trains.delete(self)
-
       @current_station == @route.stations.size - 1 ? @current_station = 0 : @current_station += 1
-
       @route.stations[@current_station].add_train(self)
-
       stop
     end
   end
@@ -82,15 +75,10 @@ class Train
     if @route.nil?
       puts 'У поезда нет маршрута, назначте маршрут'
     else
-
       add_speed
-
       @route.stations[@current_station].trains.delete(self)
-
       @current_station == - (@route.stations.size - 1) ? @current_station = 0 : @current_station -= 1
-
       @route.stations[@current_station].add_train(self)
-
       stop
     end
   end
@@ -112,8 +100,8 @@ class Train
     puts "Train \"#{@number}\" added speed by 50, current speed #{@speed}"
   end
 
-  def each_wagon
-    @wagons.each { |wagon| yield wagon }
+  def each_wagon(&block)
+    @wagons.each(&block)
   end
 
   def stop

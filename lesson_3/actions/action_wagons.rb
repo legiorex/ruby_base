@@ -36,18 +36,16 @@ class ActionWagons < Action
 
     type_wagon = gets.chomp.to_i
 
-    if type_wagon == 1
+    case type_wagon
+
+    when 1
       puts 'Введите количество мест в пассажирском вагоне'
       count_place = gets.chomp.to_i
-
       @wagons << PassengerWagon.new(count_place)
+    when 2
 
-    end
-
-    if type_wagon == 2
       puts 'Введите объем грузового вагона'
       volume = gets.chomp.to_i
-
       @wagons << CargoWagon.new(volume)
     end
   end
@@ -55,7 +53,7 @@ class ActionWagons < Action
   def sort_wagons_type(type, message)
     puts 'Выберите номер вагона'
     @wagons.each_with_index do |item, index|
-      puts "Номер вагона - #{index} --- #{message} #{item.free_items}" if item.type === type
+      puts "Номер вагона - #{index} --- #{message} #{item.free_items}" if item.type.is_a?(type)
     end
     select_wagon_index = gets.chomp.to_i
     @wagons[select_wagon_index]
@@ -70,7 +68,6 @@ class ActionWagons < Action
     wagon = sort_wagons_type('cargo', 'свободый объём')
     puts 'Введите необходимый объём для загрузки'
     value = gets.chomp.to_i
-
     wagon.load_wagon(value)
   end
 end

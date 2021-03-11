@@ -55,7 +55,7 @@ class ActionRoutes < Action
       route = Route.new(@stations[first_station], @stations[second_station])
 
       @routes << route
-      @routes.each { |item| item.get_stations }
+      @routes.each(&:all_stations)
     end
   end
 
@@ -73,7 +73,6 @@ class ActionRoutes < Action
     end
 
     select_station_index = gets.chomp.to_i
-
     select_stations.delete_at(select_station_index)
   end
 
@@ -84,14 +83,12 @@ class ActionRoutes < Action
     puts 'Выберите станцию'
 
     if free_stations.empty?
-
       puts 'Все станции есть в маршруте'
     else
       free_stations.each_with_index do |item, index|
         puts "#{index} --- станция #{item.title}"
       end
       select_station_index = gets.chomp.to_i
-
       selected_route.add_station(free_stations[select_station_index])
     end
   end

@@ -34,18 +34,14 @@ class ActionStations < Action
 
   def create_station
     puts 'Введите название станции'
-
     station_name = gets.chomp
-
     @stations << Station.new(station_name)
   end
 
   def list_trains_on_station
     puts 'Выберите станцию'
     select_station
-
     select_station_index = gets.chomp.to_i
-
     @stations[select_station_index].each_train do |train|
       puts "Номер поезда - #{train.number} тип поезда - #{train.type} количество вагонов - #{train.wagons.size}"
 
