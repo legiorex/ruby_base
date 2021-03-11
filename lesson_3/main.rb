@@ -19,8 +19,6 @@ class Main
 
     rail_road_station = RailRoadStations.new
     rail_road_station.seed
-    @routes = rail_road_station.routes
-    @stations = rail_road_station.stations
     @actions_route = ActionRoutes.new(rail_road_station)
     @actions_trains = ActionTrains.new(rail_road_station)
     @actions_wagons = ActionWagons.new(rail_road_station)
@@ -28,6 +26,8 @@ class Main
   end
 
   def control
+    select_action = { 1 => @action_stations, 2 => @actions_route, 3 => @actions_trains, 4 => @actions_wagons }
+
     loop do
       puts '1 - управление станциями'
       puts '2 - управление маршрутами'
@@ -36,23 +36,9 @@ class Main
       puts '0 - выход из программы'
       choise = gets.chomp.to_i
 
-      case choise
+      select_action[choise]&.control
 
-      when 1
-        @action_stations.control
-      when 2
-        @actions_route.control
-
-      when 3
-        @actions_trains.control
-      when 4
-        @actions_wagons.control
-
-      else
-        choise = 'exit'
-      end
-
-      break if choise == 'exit'
+      break if ['exit', 0].include?(choise)
     end
   end
 end

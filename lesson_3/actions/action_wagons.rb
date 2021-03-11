@@ -8,32 +8,26 @@ class ActionWagons < Action
   end
 
   def control
+    select_action = %i[on_main_menu create_wagon take_place load_value]
+
     loop do
       puts '1 -- создать вагон'
       puts '2 -- занять место в пассажирском вагоне'
       puts '3 -- загрузить грузовой вагон'
       puts '0 -- в главное меню'
 
-      choise_wagon = gets.chomp.to_i
+      @choise_wagon = gets.chomp.to_i
+      send(select_action[@choise_wagon])
 
-      case choise_wagon
-      when 1
-        create_wagon
-      when 2
-        take_place
-      when 3
-        take_place
-
-      when 0
-        choise_wagon = 0
-
-      end
-
-      break if choise_wagon.zero?
+      break if @choise_wagon.zero?
     end
   end
 
   private
+
+  def on_main_menu
+    @choise_wagon = 0
+  end
 
   def create_wagon
     puts 'Выберите тип вагона'

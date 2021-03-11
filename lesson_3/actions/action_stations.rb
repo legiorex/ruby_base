@@ -11,33 +11,26 @@ class ActionStations < Action
   end
 
   def control
+    select_action = %i[on_main_menu create_station select_station list_trains_on_station add_station]
+
     loop do
       puts '1 -- создать станцию'
       puts '2 -- посмотреть список станций'
       puts '3 -- посмотреть список поездов на станции'
       puts '0 -- вернуться в главное меню'
 
-      choise_station = gets.chomp.to_i
+      @choise_station = gets.chomp.to_i
+      send(select_action[@choise_station])
 
-      case choise_station
-      when 1
-        create_station
-      when 2
-        select_station
-
-      when 3
-        list_trains_on_station
-
-      when 0
-        choise_station = 0
-
-      end
-
-      break if choise_station.zero?
+      break if @choise_station.zero?
     end
   end
 
   private
+
+  def on_main_menu
+    @choise_station = 0
+  end
 
   def create_station
     puts 'Введите название станции'
