@@ -1,4 +1,5 @@
 require './modules/instance_counter'
+require './modules/company'
 require './actions/action_routes'
 require './actions/action_trains'
 require './actions/action_stations'

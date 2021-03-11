@@ -31,7 +31,7 @@ class Station
     puts "On stantion \"#{@title}\" #{@trains.size}"
   end
 
-  def get_count_type_trains
+  def count_type_trains
     count_pass = @trains.count { |item| item.type == 'passenger' }
     count_cargo = @trains.count { |item| item.type == 'cargo' }
 

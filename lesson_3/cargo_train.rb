@@ -24,7 +24,7 @@ class CargoTrain < Train
   end
 
   def print_wagons
-    self.each_wagon do |wagon|
+    each_wagon do |wagon|
       puts "тип вагона #{wagon.type} занятый объём #{wagon.occupied_items} свободный объём #{wagon.free_items}"
     end
   end
