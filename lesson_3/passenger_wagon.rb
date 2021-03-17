@@ -7,6 +7,10 @@ class PassengerWagon < Wagon
   end
 
   def take_place
-    self.used_wagon(1)
+    if free_items.zero?
+      puts 'Нет свободного места, пройдите в другой вагон'
+    else
+      used_wagon(1)
+    end
   end
 end

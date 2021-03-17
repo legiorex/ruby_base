@@ -8,32 +8,26 @@ class ActionWagons < Action
   end
 
   def control
+    select_action = %i[on_main_menu create_wagon take_place load_value]
+
     loop do
       puts '1 -- создать вагон'
       puts '2 -- занять место в пассажирском вагоне'
       puts '3 -- загрузить грузовой вагон'
       puts '0 -- в главное меню'
 
-      choise_wagon = gets.chomp.to_i
+      @choise_wagon = gets.chomp.to_i
+      send(select_action[@choise_wagon])
 
-      case choise_wagon
-      when 1
-        create_wagon
-      when 2
-        take_place
-      when 3
-        take_place
-
-      when 0
-        choise_wagon = 0
-
-      end
-
-      break if choise_wagon.zero?
+      break if @choise_wagon.zero?
     end
   end
 
   private
+
+  def on_main_menu
+    @choise_wagon = 0
+  end
 
   def create_wagon
     puts 'Выберите тип вагона'
@@ -42,18 +36,16 @@ class ActionWagons < Action
 
     type_wagon = gets.chomp.to_i
 
-    if type_wagon == 1
+    case type_wagon
+
+    when 1
       puts 'Введите количество мест в пассажирском вагоне'
       count_place = gets.chomp.to_i
-
       @wagons << PassengerWagon.new(count_place)
+    when 2
 
-    end
-
-    if type_wagon == 2
       puts 'Введите объем грузового вагона'
       volume = gets.chomp.to_i
-
       @wagons << CargoWagon.new(volume)
     end
   end
@@ -61,7 +53,7 @@ class ActionWagons < Action
   def sort_wagons_type(type, message)
     puts 'Выберите номер вагона'
     @wagons.each_with_index do |item, index|
-      puts "Номер вагона - #{index} --- #{message} #{item.free_items}" if item.type === type
+      puts "Номер вагона - #{index} --- #{message} #{item.free_items}" if item.type.is_a?(type)
     end
     select_wagon_index = gets.chomp.to_i
     @wagons[select_wagon_index]
@@ -76,7 +68,6 @@ class ActionWagons < Action
     wagon = sort_wagons_type('cargo', 'свободый объём')
     puts 'Введите необходимый объём для загрузки'
     value = gets.chomp.to_i
-
     wagon.load_wagon(value)
   end
 end

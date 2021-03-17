@@ -5,12 +5,11 @@ class Route
   def initialize(start_station, end_station)
     @start_station = start_station
     @end_station = end_station
-
     @stations = [@start_station, @end_station]
-    register_instance
+    self.register_instance
   end
 
-  def get_stations
+  def all_stations
     @stations.each_with_index do |station, index|
       is_first_index = index.zero?
       is_last_index = index == @stations.length - 1

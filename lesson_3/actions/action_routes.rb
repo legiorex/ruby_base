@@ -9,6 +9,7 @@ class ActionRoutes < Action
   end
 
   def control
+    select_action = %i[on_main_menu create_route delete_route delete_station add_station]
     loop do
       puts '1 -- создать маршрут'
       puts '2 -- удалить маршрут'
@@ -17,30 +18,17 @@ class ActionRoutes < Action
       puts '0 -- вернутся в главное меню'
 
       @choise_route = gets.chomp.to_i
+      send(select_action[@choise_route])
 
-      case @choise_route
-      when 1
-        create_route
-
-      when 2
-
-        @routes.delete_at(select_route_index)
-
-      when 3
-
-        delete_station
-
-      when 4
-        add_station
-
-      when 0
-        @choise_route = 0
-      end
-      break if @choise_route == 0
+      break if @choise_route.zero?
     end
   end
 
   private
+
+  def on_main_menu
+    @choise_route = 0
+  end
 
   def create_route
     if @stations.length < 2
@@ -67,8 +55,12 @@ class ActionRoutes < Action
       route = Route.new(@stations[first_station], @stations[second_station])
 
       @routes << route
-      @routes.each { |item| item.get_stations }
+      @routes.each(&:all_stations)
     end
+  end
+
+  def delete_route
+    @routes.delete_at(select_route_index)
   end
 
   def delete_station
@@ -81,7 +73,6 @@ class ActionRoutes < Action
     end
 
     select_station_index = gets.chomp.to_i
-
     select_stations.delete_at(select_station_index)
   end
 
@@ -92,14 +83,12 @@ class ActionRoutes < Action
     puts 'Выберите станцию'
 
     if free_stations.empty?
-
       puts 'Все станции есть в маршруте'
     else
       free_stations.each_with_index do |item, index|
         puts "#{index} --- станция #{item.title}"
       end
       select_station_index = gets.chomp.to_i
-
       selected_route.add_station(free_stations[select_station_index])
     end
   end

@@ -8,10 +8,10 @@ class CargoTrain < Train
   end
 
   def add_wagon(wagon)
-    if wagon.type != @type
-      puts 'Вы можете добавить только грузовой вагон'
+    if wagon.type == @type
+      wagons << wagon
     else
-      self.wagons << wagon
+      puts 'Вы можете добавить только грузовой вагон'
     end
   end
 
@@ -24,7 +24,7 @@ class CargoTrain < Train
   end
 
   def print_wagons
-    self.each_wagon do |wagon|
+    each_wagon do |wagon|
       puts "тип вагона #{wagon.type} занятый объём #{wagon.occupied_items} свободный объём #{wagon.free_items}"
     end
   end

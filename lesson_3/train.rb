@@ -1,30 +1,25 @@
-require './modules/company'
-
-TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-*[а-я\d]{2}$/i
+TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-?[а-я\d]{2}$/i.freeze
 
 class Train
   include Company
   include InstanceCounter
   attr_reader :number, :wagons
 
-  @@trains = []
-
-  def self.find(number)
-    @@trains.find { |item| item.number == number }
+  def find(number)
+    @trains.find { |item| item.number == number }
   end
 
   def initialize(number)
     @number = number
     validate!
-
     @speed = 0
-    @@trains << self
-
-    register_instance
+    @trains = []
+    @trains << self
+    self.register_instance
     @wagons = []
   end
 
-  def get_current_speed
+  def current_speed
     puts "Train \"#{@number}\" current speed #{@speed}"
   end
 
@@ -34,12 +29,11 @@ class Train
     @route.stations[@current_station].add_train(self)
   end
 
-  def get_current_station
+  def current_station
     next_stations = ''
     prev_stations = ''
 
     if @route.stations.size == 2
-
       @route.stations.each do  |station|
         if station != @route.stations[@current_station]
           next_stations = station.title
@@ -48,15 +42,11 @@ class Train
       end
 
     elsif @current_station == @route.stations.size - 1
-
       next_stations = @route.stations[0].title
       prev_stations = @route.stations[@current_station - 1].title
-
     elsif @current_station == - @route.stations.size - 1
-
       next_stations = @route.stations[@current_station - 1].title
       prev_stations = @route.stations[0].title
-
     else
       puts "@current_station #{@current_station}"
       next_stations = @route.stations[@current_station + 1].title
@@ -74,13 +64,9 @@ class Train
     else
 
       add_speed
-
       @route.stations[@current_station].trains.delete(self)
-
       @current_station == @route.stations.size - 1 ? @current_station = 0 : @current_station += 1
-
       @route.stations[@current_station].add_train(self)
-
       stop
     end
   end
@@ -89,15 +75,10 @@ class Train
     if @route.nil?
       puts 'У поезда нет маршрута, назначте маршрут'
     else
-
       add_speed
-
       @route.stations[@current_station].trains.delete(self)
-
       @current_station == - (@route.stations.size - 1) ? @current_station = 0 : @current_station -= 1
-
       @route.stations[@current_station].add_train(self)
-
       stop
     end
   end
@@ -119,8 +100,8 @@ class Train
     puts "Train \"#{@number}\" added speed by 50, current speed #{@speed}"
   end
 
-  def each_wagon
-    @wagons.each { |wagon| yield wagon }
+  def each_wagon(&block)
+    @wagons.each(&block)
   end
 
   def stop
