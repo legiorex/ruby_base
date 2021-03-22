@@ -25,7 +25,9 @@ module Accessors
     define_method(name) { instance_variable_get(var_name) }
 
     define_method("#{name}=".to_sym) do |value|
-      instance_variable_set(var_name, value) if value.is_a?(class_name)
+      raise 'error_message' unless value.is_a?(class_name)
+
+      instance_variable_set(var_name, value)
     end
   end
 end

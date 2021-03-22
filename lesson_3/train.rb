@@ -1,9 +1,15 @@
-TRAIN_NUMBER_FORMAT = /^[а-я\d]{3}-?[а-я\d]{2}$/i.freeze
-
 class Train
   include Company
   include InstanceCounter
+  include Validation
+
   attr_reader :number, :wagons
+
+  NUMBER_FORMAT = /^[а-я\d]{3}-?[а-я\d]{2}$/i.freeze
+
+  validate :number, :type, 'String', message: 'Не верный класс аргумента'
+  validate :number, :presence, message: 'Поезд должн иметь номер'
+  validate :number, :format, NUMBER_FORMAT, message: 'Не верный формат номера поезда'
 
   def find(number)
     @trains.find { |item| item.number == number }
@@ -83,13 +89,6 @@ class Train
     end
   end
 
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
-  end
-
   protected
 
   attr_accessor :speed
@@ -107,10 +106,5 @@ class Train
   def stop
     @speed = 0
     puts "Train \"#{@number}\" stopped"
-  end
-
-  def validate!
-    raise 'Поезд должн иметь номер' if number.nil?
-    raise 'Не верный формат номера поезда' if number !~ TRAIN_NUMBER_FORMAT
   end
 end
