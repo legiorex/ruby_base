@@ -1,4 +1,5 @@
 require './modules/instance_counter'
+require './modules/validation'
 require './modules/company'
 require './actions/action_routes'
 require './actions/action_trains'
@@ -19,7 +20,7 @@ class Main
     puts 'Привет, это программа-абстракция железной дороги'
 
     rail_road_station = RailRoadStations.new
-    rail_road_station.seed
+    # rail_road_station.seed
     @actions_route = ActionRoutes.new(rail_road_station)
     @actions_trains = ActionTrains.new(rail_road_station)
     @actions_wagons = ActionWagons.new(rail_road_station)
@@ -46,4 +47,4 @@ end
 
 main = Main.new
 
-main.control
+# main.control
